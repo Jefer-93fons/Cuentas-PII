@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.arquitectura.modelRQ;
+package ec.edu.espe.arquitectura.cuentas.rest.msg;
 
 import java.math.BigDecimal;
 
@@ -14,9 +14,10 @@ import java.math.BigDecimal;
 public class CuentaRQ {
     private String codCliente;
     private Integer idCuenta;
+    private Integer idProducto;
     private String nombreProducto;
     private BigDecimal saldoCuenta;
-    private String estadoCuenta;
+    private int estadoCuenta;
 
     public String getCodCliente() {
         return codCliente;
@@ -50,12 +51,22 @@ public class CuentaRQ {
         this.saldoCuenta = saldoCuenta;
     }
 
-    public String getEstadoCuenta() {
+    public Integer getEstadoCuenta() {
         return estadoCuenta;
     }
 
-    public void setEstadoCuenta(String estadoCuenta) {
+    public void setEstadoCuenta(Integer estadoCuenta) {
         this.estadoCuenta = estadoCuenta;
     } 
+
+    public Integer getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
+    }
+    
+    
     
 }

@@ -37,4 +37,15 @@ public class CuentaFacade extends AbstractFacade<Cuenta> {
         return qry.getResultList();
     } 
     
+    
+    public List<Cuenta> findLastAccount(){
+        //Query qry=this.em.createQuery("SELECT MAX(c.idCuenta) FROM Cuenta c");
+        //Query qry=this.em.createQuery("SELECT c FROM (SELECT t FROM Cuenta t ORDER BY t.idCuenta DESC)   \n" +
+//"WHERE ROWNUM = 1");
+        Query qry=this.em.createQuery("SELECT c FROM Cuenta c ORDER BY c.idCuenta DESC");
+        return qry.getResultList();
+        
+    }
+    
+    
 }
