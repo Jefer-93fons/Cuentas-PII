@@ -23,6 +23,7 @@ public class ProductoService {
     @EJB
     private ProductoFacade productoFacade;
     
+   
     public List<Producto> obtenerTodos(){
         return this.productoFacade.findAll();
     }
@@ -37,13 +38,26 @@ public class ProductoService {
         this.productoFacade.edit(producto);
     }
     
-    public void eliminar(Integer codigo){
-        Producto producto = this.productoFacade.find(codigo);
-        this.productoFacade.remove(producto);
+//    public void eliminar(Integer codigo){
+//        Producto producto = this.productoFacade.find(codigo);
+//        this.productoFacade.remove(producto);
+//    }
+    public void eliminar(Producto auxProducto){
+        this.productoFacade.remove(auxProducto);
     }
     
     public List<Producto> buscarPorTipo(Integer tipoBusqueda) {
         return this.productoFacade.findByTipo(tipoBusqueda);
     }
     
+    public Producto buscar(Producto auxProducto){
+        Producto producto=null;
+        for (Producto productoAux: this.productoFacade.findAll()) {
+            if (productoAux.getIdProducto()==auxProducto.getIdProducto()) {
+                producto=productoAux;
+            }
+        }
+
+        return producto;
+    }
 }
