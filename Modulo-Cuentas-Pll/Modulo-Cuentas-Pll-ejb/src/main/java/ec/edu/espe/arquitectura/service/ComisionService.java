@@ -36,10 +36,21 @@ public class ComisionService {
     public void modificar(Comision interes){
         this.comisionFacade.edit(interes);
     }
+  
     
-    public void eliminar(Integer codigo){
-        Comision interes = this.comisionFacade.find(codigo);
-        this.comisionFacade.remove(interes);
+    public void eliminar(Comision auxComision){
+        this.comisionFacade.remove(auxComision);
     }
     
+    
+    public Comision buscar(Comision auxComision){
+        Comision comision=null;
+        for (Comision comisionAux: this.comisionFacade.findAll()) {
+            if (comisionAux.getIdComision()==auxComision.getIdComision()) {
+                comision=comisionAux;
+            }
+        }
+
+        return comision;
+    }
 }
