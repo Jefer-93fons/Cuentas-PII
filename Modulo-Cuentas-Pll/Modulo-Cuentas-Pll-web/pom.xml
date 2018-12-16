@@ -26,6 +26,12 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <artifactId>Modulo-Cuentas-Pll-ejb</artifactId>
+            <groupId>ec.edu.espe.arquitectura</groupId>
+            <version>1</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
