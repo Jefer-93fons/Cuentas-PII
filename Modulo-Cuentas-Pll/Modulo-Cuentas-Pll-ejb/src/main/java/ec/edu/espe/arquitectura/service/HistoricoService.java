@@ -41,4 +41,8 @@ public class HistoricoService {
         Historico historico = this.historicoFacade.find(codigo);
         this.historicoFacade.remove(historico);
     }
+    
+    public List<Historico> obtenerPorCuenta(int numcuenta){
+        return this.historicoFacade.findByCuenta(numcuenta);
+    }
 }

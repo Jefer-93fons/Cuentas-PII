@@ -6,7 +6,11 @@
 package ec.edu.espe.arquitectura.rest.api;
 
 import ec.edu.espe.arquitectura.model.Cuenta;
+import ec.edu.espe.arquitectura.model.Historico;
+import ec.edu.espe.arquitectura.modelRQ.CuentaRQ;
 import ec.edu.espe.arquitectura.service.CuentaService;
+import ec.edu.espe.arquitectura.service.HistoricoService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -35,7 +39,10 @@ public class CuentaResource {
     private UriInfo context;
     @Inject
     private CuentaService cuentaService;
+    @Inject
+    private HistoricoService historicoService;
     private List<Cuenta> lstCuentas;
+    
 
     /**
      * Creates a new instance of CuentaResource
@@ -62,9 +69,21 @@ public class CuentaResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJson() {
         //TODO return proper representation object
+        List<CuentaRQ> cuentasRQ = new ArrayList<>();
         lstCuentas = cuentaService.obtenerTodos();
-        GenericEntity generic = new GenericEntity<List<Cuenta>>(lstCuentas){};
         
+        for(Cuenta cuenta : lstCuentas){
+            CuentaRQ newcuenta = new CuentaRQ();
+            newcuenta.setIdCuenta(cuenta.getIdCuenta());
+            newcuenta.setCodCliente(cuenta.getCodCliente());
+            newcuenta.setNombreProducto(cuenta.getIdProducto().getNombreProducto());
+            newcuenta.setSaldoCuenta(cuenta.getSaldoCuenta());
+            newcuenta.setEstadoCuenta(historicoService.obtenerPorCuenta(cuenta.getIdCuenta()).get(0).getIdEstadoCuenta().getNombreEstadoCuenta());            
+            cuentasRQ.add(newcuenta);
+            
+        }
+        
+        GenericEntity generic = new GenericEntity<List<CuentaRQ>>(cuentasRQ){};
         return Response.ok(generic).build();
     }
 

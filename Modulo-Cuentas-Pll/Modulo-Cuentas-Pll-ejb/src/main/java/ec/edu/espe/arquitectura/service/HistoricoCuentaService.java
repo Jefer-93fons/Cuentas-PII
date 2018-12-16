@@ -28,7 +28,7 @@ public class HistoricoCuentaService {
     }
     
     public List<Historico> porNumCuenta(Integer idCuenta){
-        return this.historicoFacade.findByAccount(idCuenta);
+        return this.historicoFacade.findByCuenta(idCuenta);
     }
     
     public void modificar(Historico historico){
