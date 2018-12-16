@@ -6,9 +6,11 @@
 package ec.edu.espe.arquitectura.dao;
 
 import ec.edu.espe.arquitectura.model.Cuenta;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,11 @@ public class CuentaFacade extends AbstractFacade<Cuenta> {
     public CuentaFacade() {
         super(Cuenta.class);
     }
+    
+    public List<Cuenta> findByCedulaCliente(String cedula){
+        Query qry=this.em.createQuery("SELECT c FROM Cuenta c WHERE c.codCliente = ?1");
+        qry.setParameter(1, cedula);
+        return qry.getResultList();
+    } 
     
 }

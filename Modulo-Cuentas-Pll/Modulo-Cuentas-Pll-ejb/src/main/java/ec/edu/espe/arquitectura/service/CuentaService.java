@@ -30,8 +30,8 @@ public class CuentaService {
     public List<Cuenta> obtenerTodos(){
         return this.cuentaFacade.findAll();
     }
-    public Cuenta obtenerPorCodigo(Integer codigo) {
-        return this.cuentaFacade.find(codigo);
+    public List<Cuenta> obtenerPorCedulaCliente(String cedula) {
+        return this.cuentaFacade.findByCedulaCliente(cedula);
     }
     
     public void crear(Cuenta cuenta){
