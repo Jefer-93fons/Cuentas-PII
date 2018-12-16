@@ -37,9 +37,18 @@ public class ComisionProductoService {
         this.comisionProductoFacade.edit(interes);
     }
     
-    public void eliminar(Integer codigo){
-        ComisionProducto interes = this.comisionProductoFacade.find(codigo);
-        this.comisionProductoFacade.remove(interes);
-    }
     
+     public ComisionProducto buscar(ComisionProducto auxComisionProducto){
+        ComisionProducto comisionProducto=null;
+        for (ComisionProducto comisionProductoAux: this.comisionProductoFacade.findAll()) {
+            if (comisionProductoAux.getIdComisionProducto()==auxComisionProducto.getIdComisionProducto()) {
+                comisionProducto=comisionProductoAux;
+            }
+        }
+
+        return comisionProducto;
+    }
+      public void eliminar(ComisionProducto auxComisionProducto){
+        this.comisionProductoFacade.remove(auxComisionProducto);
+    }
 }
