@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Jefferson
  */
+
 @Stateless
 public class TipoTransaccionFacade extends AbstractFacade<TipoTransaccion> {
 
