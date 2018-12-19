@@ -27,11 +27,33 @@ public class TipoTransaccionService {
         return this.tipoTransaccionFacade.findAll();
     }
     
+    public TipoTransaccion obtenerPorCodigo(Integer codigo){
+        return this.tipoTransaccionFacade.find(codigo);
+    }
     public void crear(TipoTransaccion tipoTransaccion){
         this.tipoTransaccionFacade.create(tipoTransaccion);
     }
     
-
-
-
+    public void modificar (TipoTransaccion tipoTransaccion){
+        this.tipoTransaccionFacade.edit(tipoTransaccion);
+    }
+    
+    public void eliminar(TipoTransaccion auxTipoTransaccion){
+        this.tipoTransaccionFacade.remove(auxTipoTransaccion);
+    }
+    
+    public TipoTransaccion buscar(TipoTransaccion auxTipoTransaccion){
+        TipoTransaccion tipoTransaccion=null;
+        for(TipoTransaccion tipoTransaccionAux: this.tipoTransaccionFacade.findAll()){
+            if(tipoTransaccionAux.getIdTipoTransaccion()==auxTipoTransaccion.getIdTipoTransaccion()){
+                tipoTransaccion=tipoTransaccionAux;
+            }
+        }
+        return tipoTransaccion;
+    }
 }
+    
+
+
+
+

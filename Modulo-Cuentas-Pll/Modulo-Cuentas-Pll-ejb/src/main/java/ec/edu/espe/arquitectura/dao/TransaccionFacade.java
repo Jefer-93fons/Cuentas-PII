@@ -6,9 +6,11 @@
 package ec.edu.espe.arquitectura.dao;
 
 import ec.edu.espe.arquitectura.model.Transaccion;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,12 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> {
 
     public TransaccionFacade() {
         super(Transaccion.class);
+    }
+    
+    public List<Transaccion> findByCodigo(Integer codigo){
+        Query qry=this.em.createQuery("SELECT obj FROM Transaccion obj WHERE obj.idTransaccion=?1");
+        qry.setParameter(1, codigo);
+        return qry.getResultList();
     }
     
 }
