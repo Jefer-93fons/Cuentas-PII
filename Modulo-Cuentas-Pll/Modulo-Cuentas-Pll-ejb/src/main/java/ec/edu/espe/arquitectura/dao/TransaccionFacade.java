@@ -37,4 +37,10 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> {
         return qry.getResultList();
     }
     
+    public List<Transaccion> findByTipo(Integer tipo){
+        Query qry=this.em.createQuery("SELECT obj FROM Transccion obj WHERE obj.idTipoTransaccion.idTipoTransaccon=?1");
+        qry.setParameter(1,tipo);
+        return qry.getResultList();
+    }
+    
 }

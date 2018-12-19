@@ -51,7 +51,7 @@ public class TipoTransaccionResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public TipoTransaccion getJson(){
-      //  lstTipoTransacciones=TipoTransaccionService.obtenerTodos();
+        lstTipoTransacciones=TipoTransaccionService.obtenerTodos
         if(lstTipoTransacciones.size()>0){
         }
    // }

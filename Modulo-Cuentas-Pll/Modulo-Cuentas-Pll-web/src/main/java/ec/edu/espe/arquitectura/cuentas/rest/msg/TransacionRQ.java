@@ -17,7 +17,6 @@ public class TransacionRQ {
     private Integer idCuenta;
     private Float valorTransaccion;
     private Date fechaTransaccion;
-
     public Integer getIdTransaccion() {
         return idTransaccion;
     }
