@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.arquitectura.cuentas.rest.msg;
+package ec.edu.espe.arquitectura.soap.ws.msg;
 
+import ec.edu.espe.arquitectura.cuentas.rest.msg.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.Date;
  *
  * @author Juan
  */
-public class TransaccionBancaHistoricoRQ {
+public class TranfBancaHistoricoRQ {
 
     private Date fecha;
     private String documento;
