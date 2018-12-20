@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Admin
  */
-public class TransacionRQ {
+public class TransaccionRQ {
     private Integer idTransaccion;
     private Integer idTipoTransaccion;
     private Integer idCuenta;
