@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,57 +10,40 @@ import java.util.Date;
 
 /**
  *
- * @author Admin
+ * @author Juan
  */
 public class TransaccionRQ {
-    private Integer idTransaccion;
-    private Integer idTipoTransaccion;
-    private Integer idCuenta;
-    private Float valorTransaccion;
-    private Date fechaTransaccion;
-    public Integer getIdTransaccion() {
-        return idTransaccion;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private String cuenta;
+
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setIdTransaccion(Integer idTransaccion) {
-        this.idTransaccion = idTransaccion;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    public Integer getIdTipoTransaccion() {
-        return idTipoTransaccion;
+    public Date getFechaFin() {
+        return fechaFin;
     }
 
-    public void setIdTipoTransaccion(Integer idTipoTransaccion) {
-        this.idTipoTransaccion = idTipoTransaccion;
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
-    public Integer getIdCuenta() {
-        return idCuenta;
+    public String getCuenta() {
+        return cuenta;
     }
 
-    public void setIdCuenta(Integer idCuenta) {
-        this.idCuenta = idCuenta;
-    }
-
-    public Float getValorTransaccion() {
-        return valorTransaccion;
-    }
-
-    public void setValorTransaccion(Float valorTransaccion) {
-        this.valorTransaccion = valorTransaccion;
-    }
-
-    public Date getFechaTransaccion() {
-        return fechaTransaccion;
-    }
-
-    public void setFechaTransaccion(Date fechaTransaccion) {
-        this.fechaTransaccion = fechaTransaccion;
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
     }
 
     @Override
     public String toString() {
-        return "TransacionRQ{" + "idTransaccion=" + idTransaccion + ", idTipoTransaccion=" + idTipoTransaccion + ", idCuenta=" + idCuenta + ", valorTransaccion=" + valorTransaccion + ", fechaTransaccion=" + fechaTransaccion + '}';
+        return "TransaccionRQ{" + "fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", cuenta=" + cuenta + '}';
     }
     
     

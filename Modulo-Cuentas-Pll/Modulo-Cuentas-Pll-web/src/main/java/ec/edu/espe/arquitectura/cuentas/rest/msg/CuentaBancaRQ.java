@@ -12,7 +12,7 @@ package ec.edu.espe.arquitectura.cuentas.rest.msg;
 public class CuentaBancaRQ {
     private String cuenta;
     private String tipo;
-    private boolean estado;
+    private String estado;
     private double saldo;
 
     public String getCuenta() {
@@ -31,11 +31,11 @@ public class CuentaBancaRQ {
         this.tipo = tipo;
     }
 
-    public boolean isEstado() {
+    public String isEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

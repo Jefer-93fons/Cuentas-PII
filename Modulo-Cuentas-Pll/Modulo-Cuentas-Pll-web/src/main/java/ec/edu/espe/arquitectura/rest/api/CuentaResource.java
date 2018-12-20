@@ -74,7 +74,8 @@ public class CuentaResource {
         for(Cuenta auxCuenta:lstCuentas){
             CuentaBancaRQ auxCuentaBancaRQ=new CuentaBancaRQ();
             auxCuentaBancaRQ.setCuenta(auxCuenta.getIdCuenta().toString());
-            auxCuentaBancaRQ.setEstado(true);
+            //Falta consultar el estado de la cuenta
+            auxCuentaBancaRQ.setEstado("Activa");
             auxCuentaBancaRQ.setSaldo( auxCuenta.getSaldoCuenta().doubleValue());
             auxCuentaBancaRQ.setTipo(auxCuenta.getIdProducto().getNombreProducto());
             lstCuentasRQ.add(auxCuentaBancaRQ);
@@ -88,9 +89,10 @@ public class CuentaResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJson() {
         //TODO return proper representation object
+        System.out.println("Entro");
         List<CuentaRQ> cuentasRQ = new ArrayList<>();
         lstCuentas = cuentaService.obtenerTodos();
-        
+        System.out.println("2");
         for(Cuenta cuenta : lstCuentas){
             CuentaRQ newcuenta = new CuentaRQ();
             newcuenta.setIdCuenta(cuenta.getIdCuenta());
@@ -102,7 +104,7 @@ public class CuentaResource {
             cuentasRQ.add(newcuenta);
             
         }
-        
+        System.out.println("3");
         GenericEntity generic = new GenericEntity<List<CuentaRQ>>(cuentasRQ){};
         return Response.ok(generic).build();
     }
