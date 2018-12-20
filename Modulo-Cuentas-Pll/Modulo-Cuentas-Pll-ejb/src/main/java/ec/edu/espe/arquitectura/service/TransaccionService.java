@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -48,7 +49,23 @@ public class TransaccionService {
     public void modificar(Transaccion transaccion) {
         this.transaccionFacade.edit(transaccion);
     }
-
+    public void eliminar(Transaccion auxTransaccion){
+        this.transaccionFacade.remove(auxTransaccion);
+    }
+    
+    //public List<Transaccion> buscarPorTipo(Integer tipoBusqueda){
+     //   return this.transaccionFacade.findByTipo(tipoBusqueda);
+    //}
+    
+    public Transaccion buscar (Transaccion auxTransaccion){
+       Transaccion transaccion=null;
+       for(Transaccion transaccionAux: this.transaccionFacade.findAll()){
+           if(transaccionAux.getIdTransaccion()==auxTransaccion.getIdTransaccion()){
+               transaccion=transaccionAux;
+            }
+        }
+    return transaccion;
+    }
     public List<Transaccion> findHistorialTransaccion(Date fechaI, Date fechaF, String cuenta) {
         List<Transaccion> trans = porCuenta(Integer.parseInt(cuenta));
         List<Transaccion> transaccionsDevuletas = new ArrayList<>();
@@ -59,6 +76,9 @@ public class TransaccionService {
             }
         }
         return transaccionsDevuletas;
+    }
+  public Transaccion obtenerPorCodigo(Integer codigo){
+        return this.transaccionFacade.find(codigo);
     }
 
 }
