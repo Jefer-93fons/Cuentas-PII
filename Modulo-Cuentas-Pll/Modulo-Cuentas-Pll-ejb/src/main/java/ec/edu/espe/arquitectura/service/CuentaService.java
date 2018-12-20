@@ -42,9 +42,16 @@ public class CuentaService {
         this.cuentaFacade.edit(cuenta);
     }
     
+    public List<Cuenta> obtenerUltimaCuenta(){
+        return this.cuentaFacade.findLastAccount();
+    }
+    
     public void eliminar(Integer codigo){
         Cuenta cuenta = this.cuentaFacade.find(codigo);
-        this.cuentaFacade.remove(cuenta);
+        if(cuenta!=null){
+            this.cuentaFacade.remove(cuenta);
+        }else{
+            throw new RuntimeException("Cuenta no encontrada");
+        }
     }
-
 }

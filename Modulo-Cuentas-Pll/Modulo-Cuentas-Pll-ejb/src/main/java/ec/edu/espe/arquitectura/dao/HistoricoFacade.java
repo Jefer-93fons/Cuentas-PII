@@ -31,8 +31,8 @@ public class HistoricoFacade extends AbstractFacade<Historico> {
         super(Historico.class);
     }
     
-    public List<Historico> findByAccount(Integer idCuenta) {
-        Query qry = this.em.createQuery("SELECT obj FROM Historico obj WHERE obj.idCuenta.idCuenta=?1");
+    public List<Historico> findByCuenta(Integer idCuenta) {
+        Query qry = this.em.createQuery("SELECT h from Historico h WHERE h.idCuenta.idCuenta = ?1 ORDER BY h.fechaHistorico DESC");
         qry.setParameter(1, idCuenta);
         return qry.getResultList();
     }

@@ -36,6 +36,7 @@ public class ApplicationConfig extends Application {
         resources.add(ec.edu.espe.arquitectura.rest.api.InteresProductoResource.class);
         resources.add(ec.edu.espe.arquitectura.rest.api.InteresResource.class);
         resources.add(ec.edu.espe.arquitectura.rest.api.ProductoResource.class);
+
     }
     
 }
