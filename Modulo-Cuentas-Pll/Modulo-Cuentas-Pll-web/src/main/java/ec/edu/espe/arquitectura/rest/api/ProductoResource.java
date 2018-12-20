@@ -5,9 +5,13 @@
  */
 package ec.edu.espe.arquitectura.rest.api;
 
+import ec.edu.espe.arquitectura.cuentas.rest.msg.HistoricoProductoRQ;
 import ec.edu.espe.arquitectura.cuentas.rest.msg.ProductoRQ;
+import ec.edu.espe.arquitectura.model.EstadoProducto;
+import ec.edu.espe.arquitectura.model.HistoricoProducto;
 import ec.edu.espe.arquitectura.model.Producto;
 import ec.edu.espe.arquitectura.model.TipoProducto;
+import ec.edu.espe.arquitectura.service.HistoricoProductoService;
 import ec.edu.espe.arquitectura.service.ProductoService;
 import ec.edu.espe.arquitectura.service.TipoProductoService;
 import java.util.List;
@@ -43,6 +47,9 @@ public class ProductoResource {
     @Inject
     private TipoProductoService tipoProductoService;
     private List<TipoProducto> lstTipoProductos;
+    
+    @Inject
+    private HistoricoProductoService historicoProductoService;
 
     public ProductoResource() {
     }
@@ -66,19 +73,29 @@ public class ProductoResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response postJson(ProductoRQ content) {
+    public Response postJson(ProductoRQ content, HistoricoProductoRQ content1) {
         System.out.println("Datos Recibidos son: " + content.toString());
         Producto newProducto = new Producto();
         TipoProducto tipoProducto = new TipoProducto();
-
+        HistoricoProducto newHistoricoProducto = new HistoricoProducto();
+        EstadoProducto estado = new EstadoProducto();
+        estado.setIdEstadoProducto(1);
+        
+        
         tipoProducto.setIdTipoProducto(content.getIdTipoProducto());
         newProducto.setIdProducto(0);
+        
         newProducto.setIdTipoProducto(tipoProducto);
         newProducto.setNombreProducto(content.getNombreProducto());
         newProducto.setRestriccionProducto(content.getRestriccionProducto());
 
         productoService.crear(newProducto);
-
+        newHistoricoProducto.setIdHistoricoProducto(0);
+        newHistoricoProducto.setIdProducto(newProducto);
+        newHistoricoProducto.setIdEstadoProducto(estado);
+        newHistoricoProducto.setFechaVigencia1(content1.getFechaVigencia1());
+//      newHistoricoProducto.setFechaVigencia(Date.valueOf(content1.getFechaVigencia());
+        historicoProductoService.crear(newHistoricoProducto);
         return Response.status(200).entity("").build();
     }
 

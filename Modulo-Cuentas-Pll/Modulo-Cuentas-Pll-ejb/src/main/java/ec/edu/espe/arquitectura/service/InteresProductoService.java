@@ -35,5 +35,6 @@ public class InteresProductoService {
         this.fechaTrabajoFacade.edit(interesProducto);
     }
     
+    
 
 }
