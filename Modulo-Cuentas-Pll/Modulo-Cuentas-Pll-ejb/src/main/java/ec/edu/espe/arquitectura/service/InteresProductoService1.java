@@ -37,9 +37,20 @@ public class InteresProductoService1 {
         this.interesProductoFacade.edit(interes);
     }
     
-    public void eliminar(Integer codigo){
-        InteresProducto interes = this.interesProductoFacade.find(codigo);
-        this.interesProductoFacade.remove(interes);
+   public void eliminar(InteresProducto auxProducto){
+        this.interesProductoFacade.remove(auxProducto);
+    }
+   
+    
+    public InteresProducto buscar(InteresProducto auxProducto){
+        InteresProducto producto=null;
+        for (InteresProducto productoAux: this.interesProductoFacade.findAll()) {
+            if (productoAux.getIdInteres()==auxProducto.getIdInteres()) {
+                producto=productoAux;
+            }
+        }
+
+        return producto;
     }
     
 }

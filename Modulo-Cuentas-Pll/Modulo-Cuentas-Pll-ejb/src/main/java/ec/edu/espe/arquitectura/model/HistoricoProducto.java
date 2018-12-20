@@ -44,7 +44,8 @@ public class HistoricoProducto implements Serializable {
     @NotNull
     @Column(name = "FECHA_VIGENCIA")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaVigencia;
+    //private Date fechaVigencia;
+    private String fechaVigencia1;
     @JoinColumn(name = "ID_ESTADO_PRODUCTO", referencedColumnName = "ID_ESTADO_PRODUCTO")
     @ManyToOne
     private EstadoProducto idEstadoProducto;
@@ -59,9 +60,9 @@ public class HistoricoProducto implements Serializable {
         this.idHistoricoProducto = idHistoricoProducto;
     }
 
-    public HistoricoProducto(Integer idHistoricoProducto, Date fechaVigencia) {
+    public HistoricoProducto(Integer idHistoricoProducto, String fechaVigencia1) {
         this.idHistoricoProducto = idHistoricoProducto;
-        this.fechaVigencia = fechaVigencia;
+        this.fechaVigencia1 = fechaVigencia1;
     }
 
     public Integer getIdHistoricoProducto() {
@@ -72,14 +73,23 @@ public class HistoricoProducto implements Serializable {
         this.idHistoricoProducto = idHistoricoProducto;
     }
 
-    public Date getFechaVigencia() {
-        return fechaVigencia;
+//    public Date getFechaVigencia() {
+//        return fechaVigencia;
+//    }
+//
+//    public void setFechaVigencia(Date fechaVigencia) {
+//        this.fechaVigencia = fechaVigencia;
+//    }
+
+    public String getFechaVigencia1() {
+        return fechaVigencia1;
     }
 
-    public void setFechaVigencia(Date fechaVigencia) {
-        this.fechaVigencia = fechaVigencia;
+    public void setFechaVigencia1(String fechaVigencia1) {
+        this.fechaVigencia1 = fechaVigencia1;
     }
 
+    
     public EstadoProducto getIdEstadoProducto() {
         return idEstadoProducto;
     }
