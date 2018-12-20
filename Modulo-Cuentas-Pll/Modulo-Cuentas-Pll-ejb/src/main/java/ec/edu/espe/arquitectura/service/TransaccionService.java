@@ -8,7 +8,10 @@ package ec.edu.espe.arquitectura.service;
 import ec.edu.espe.arquitectura.dao.TransaccionFacade;
 import ec.edu.espe.arquitectura.model.Cuenta;
 import ec.edu.espe.arquitectura.model.Transaccion;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -58,4 +61,6 @@ public class TransaccionService {
         }
     return transaccion;
     }
+    
+    
 }    
