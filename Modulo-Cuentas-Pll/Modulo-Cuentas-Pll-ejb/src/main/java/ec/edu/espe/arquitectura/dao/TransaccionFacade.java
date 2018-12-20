@@ -6,9 +6,11 @@
 package ec.edu.espe.arquitectura.dao;
 
 import ec.edu.espe.arquitectura.model.Transaccion;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,23 @@ public class TransaccionFacade extends AbstractFacade<Transaccion> {
         super(Transaccion.class);
     }
     
-}
+    public List<Transaccion> findByCodigo(Integer codigo){
+        Query qry=this.em.createQuery("SELECT obj FROM Transaccion obj WHERE obj.idTransaccion=?1");
+        qry.setParameter(1, codigo);
+        return qry.getResultList();
+    }
+    
+    public List<Transaccion> findByTipo(Integer tipo){
+        Query qry=this.em.createQuery("SELECT obj FROM Transccion obj WHERE obj.idTipoTransaccion.idTipoTransaccon=?1");
+        qry.setParameter(1,tipo);
+        return qry.getResultList();
+    }
+    
+    public List<Transaccion> findByCuenta(String cuenta){
+        Query qry=this.em.createQuery("SELECT obj FROM Transaccion obj WHERE obj.idCuenta=?1");
+        qry.setParameter(1,cuenta);
+        return qry.getResultList();
+    }
+    }
+    
+

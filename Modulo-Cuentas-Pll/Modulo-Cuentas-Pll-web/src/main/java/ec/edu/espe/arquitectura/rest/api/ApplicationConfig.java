@@ -12,7 +12,7 @@ import javax.ws.rs.core.Application;
  *
  * @author Jefferson
  */
-@javax.ws.rs.ApplicationPath("webresources")
+@javax.ws.rs.ApplicationPath("api")
 public class ApplicationConfig extends Application {
 
     @Override
@@ -36,6 +36,12 @@ public class ApplicationConfig extends Application {
         resources.add(ec.edu.espe.arquitectura.rest.api.InteresProductoResource.class);
         resources.add(ec.edu.espe.arquitectura.rest.api.InteresResource.class);
         resources.add(ec.edu.espe.arquitectura.rest.api.ProductoResource.class);
+
+
+        resources.add(ec.edu.espe.arquitectura.rest.api.TipoTransaccionResource.class);
+
+        resources.add(ec.edu.espe.arquitectura.rest.api.TransaccionResource.class);
+        resources.add(ec.edu.espe.arquitectura.rest.api.UsuarioResource.class);
 
     }
     
