@@ -9,6 +9,7 @@ import ec.edu.espe.arquitectura.dao.TransaccionFacade;
 import ec.edu.espe.arquitectura.model.Cuenta;
 import ec.edu.espe.arquitectura.model.Transaccion;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -28,12 +29,12 @@ public class TransaccionService {
     public List<Transaccion> obtenerTodos() {
         return this.transaccionFacade.findAll();
     }
-    
-    public List<Transaccion> porCuenta(int accountCode){
-        List<Transaccion> transacciones=obtenerTodos();
-        List<Transaccion> transaccionsDevuletas=new ArrayList<>();
-        for(Transaccion auxTrans:transacciones){
-            if (auxTrans.getIdCuenta().getIdCuenta()==accountCode) {
+
+    public List<Transaccion> porCuenta(int accountCode) {
+        List<Transaccion> transacciones = obtenerTodos();
+        List<Transaccion> transaccionsDevuletas = new ArrayList<>();
+        for (Transaccion auxTrans : transacciones) {
+            if (auxTrans.getIdCuenta().getIdCuenta() == accountCode) {
                 transaccionsDevuletas.add(auxTrans);
             }
         }
@@ -46,6 +47,18 @@ public class TransaccionService {
 
     public void modificar(Transaccion transaccion) {
         this.transaccionFacade.edit(transaccion);
+    }
+
+    public List<Transaccion> findHistorialTransaccion(Date fechaI, Date fechaF, String cuenta) {
+        List<Transaccion> trans = porCuenta(Integer.parseInt(cuenta));
+        List<Transaccion> transaccionsDevuletas = new ArrayList<>();
+        for (Transaccion auxTran : trans) {
+            Date auxFecha = auxTran.getFechaTransaccion();
+            if (auxFecha.before(fechaF) && auxFecha.after(fechaI)) {
+                transaccionsDevuletas.add(auxTran);
+            }
+        }
+        return transaccionsDevuletas;
     }
 
 }
