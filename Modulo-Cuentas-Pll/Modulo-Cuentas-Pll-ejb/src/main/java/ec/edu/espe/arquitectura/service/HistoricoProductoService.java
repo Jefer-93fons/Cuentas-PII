@@ -46,4 +46,20 @@ public class HistoricoProductoService {
         return this.historicoProductoFacade.findByTipo(tipoBusqueda);
     }
     
+     public void eliminar(HistoricoProducto auxProducto){
+        this.historicoProductoFacade.remove(auxProducto);
+    }
+   
+    
+    public HistoricoProducto buscar(HistoricoProducto auxProducto){
+        HistoricoProducto producto=null;
+        for (HistoricoProducto productoAux: this.historicoProductoFacade.findAll()) {
+            if (productoAux.getIdHistoricoProducto()==auxProducto.getIdHistoricoProducto()) {
+                producto=productoAux;
+            }
+        }
+
+        return producto;
+    }
+    
 }

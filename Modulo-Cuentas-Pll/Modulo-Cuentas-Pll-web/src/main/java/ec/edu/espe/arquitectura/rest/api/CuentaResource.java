@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.arquitectura.rest.api;
 
+import ec.edu.espe.arquitectura.cuentas.rest.msg.CuentaBancaRQ;
 import ec.edu.espe.arquitectura.model.Cuenta;
 import ec.edu.espe.arquitectura.model.Historico;
 import ec.edu.espe.arquitectura.cuentas.rest.msg.CuentaRQ;
@@ -15,6 +16,7 @@ import ec.edu.espe.arquitectura.service.EstadoCuentaService;
 import ec.edu.espe.arquitectura.service.HistoricoService;
 import java.io.IOException;
 import java.net.ProtocolException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,7 +72,17 @@ public class CuentaResource {
     public Response getJson(@PathParam("cedula")String cedula) {
         //TODO return proper representation object
         lstCuentas = cuentaService.obtenerPorCedulaCliente(cedula);
-        GenericEntity generic = new GenericEntity<List<Cuenta>>(lstCuentas){};
+        List<CuentaBancaRQ> lstCuentasRQ=new ArrayList<>();
+        for(Cuenta auxCuenta:lstCuentas){
+            CuentaBancaRQ auxCuentaBancaRQ=new CuentaBancaRQ();
+            auxCuentaBancaRQ.setCuenta(auxCuenta.getIdCuenta().toString());
+            //Falta consultar el estado de la cuenta
+            auxCuentaBancaRQ.setEstado("Activa");
+            auxCuentaBancaRQ.setSaldo( auxCuenta.getSaldoCuenta().doubleValue());
+            auxCuentaBancaRQ.setTipo(auxCuenta.getIdProducto().getNombreProducto());
+            lstCuentasRQ.add(auxCuentaBancaRQ);
+        }
+        GenericEntity generic = new GenericEntity<List<CuentaBancaRQ>>(lstCuentasRQ){};
         
         return Response.ok(generic).build();
     }
@@ -79,9 +91,10 @@ public class CuentaResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getJson() {
         //TODO return proper representation object
+        System.out.println("Entro");
         List<CuentaRQ> cuentasRQ = new ArrayList<>();
         lstCuentas = cuentaService.obtenerTodos();
-        
+        System.out.println("2");
         for(Cuenta cuenta : lstCuentas){
             CuentaRQ newcuenta = new CuentaRQ();
             newcuenta.setIdCuenta(cuenta.getIdCuenta());
@@ -93,7 +106,7 @@ public class CuentaResource {
             cuentasRQ.add(newcuenta);
             
         }
-        
+        System.out.println("3");
         GenericEntity generic = new GenericEntity<List<CuentaRQ>>(cuentasRQ){};
         return Response.ok(generic).build();
     }
