@@ -11,6 +11,9 @@ import ec.edu.espe.arquitectura.dao.ClienteFacade;
 import ec.edu.espe.arquitectura.dao.CuentaFacade;
 import ec.edu.espe.arquitectura.model.Cliente;
 import ec.edu.espe.arquitectura.model.Cuenta;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 
 import java.util.List;
 import javax.ejb.EJB;
@@ -53,5 +56,9 @@ public class CuentaService {
         }else{
             throw new RuntimeException("Cuenta no encontrada");
         }
+    }
+    
+    public boolean validarUsuario (String cedula) throws MalformedURLException, ProtocolException, IOException{
+        return this.cuentaFacade.obtenerUsuario(cedula);
     }
 }
