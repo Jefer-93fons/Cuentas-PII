@@ -70,34 +70,34 @@ public class ProductoResource {
         return null;
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response postJson(ProductoRQ content, HistoricoProductoRQ content1) {
-        System.out.println("Datos Recibidos son: " + content.toString());
-        Producto newProducto = new Producto();
-        TipoProducto tipoProducto = new TipoProducto();
-        HistoricoProducto newHistoricoProducto = new HistoricoProducto();
-        EstadoProducto estado = new EstadoProducto();
-        estado.setIdEstadoProducto(1);
-        
-        
-        tipoProducto.setIdTipoProducto(content.getIdTipoProducto());
-        newProducto.setIdProducto(0);
-        
-        newProducto.setIdTipoProducto(tipoProducto);
-        newProducto.setNombreProducto(content.getNombreProducto());
-        newProducto.setRestriccionProducto(content.getRestriccionProducto());
-
-        productoService.crear(newProducto);
-        newHistoricoProducto.setIdHistoricoProducto(0);
-        newHistoricoProducto.setIdProducto(newProducto);
-        newHistoricoProducto.setIdEstadoProducto(estado);
-        newHistoricoProducto.setFechaVigencia1(content1.getFechaVigencia1());
-//      newHistoricoProducto.setFechaVigencia(Date.valueOf(content1.getFechaVigencia());
-        historicoProductoService.crear(newHistoricoProducto);
-        return Response.status(200).entity("").build();
-    }
+//    @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public Response postJson(ProductoRQ content, HistoricoProductoRQ content1) {
+//        System.out.println("Datos Recibidos son: " + content.toString());
+//        Producto newProducto = new Producto();
+//        TipoProducto tipoProducto = new TipoProducto();
+//        HistoricoProducto newHistoricoProducto = new HistoricoProducto();
+//        EstadoProducto estado = new EstadoProducto();
+//        estado.setIdEstadoProducto(1);
+//        
+//        
+//        tipoProducto.setIdTipoProducto(content.getIdTipoProducto());
+//        newProducto.setIdProducto(0);
+//        
+//        newProducto.setIdTipoProducto(tipoProducto);
+//        newProducto.setNombreProducto(content.getNombreProducto());
+//        newProducto.setRestriccionProducto(content.getRestriccionProducto());
+//
+//        productoService.crear(newProducto);
+//        newHistoricoProducto.setIdHistoricoProducto(0);
+//        newHistoricoProducto.setIdProducto(newProducto);
+//        newHistoricoProducto.setIdEstadoProducto(estado);
+//        newHistoricoProducto.setFechaVigencia1(content1.getFechaVigencia1());
+////      newHistoricoProducto.setFechaVigencia(Date.valueOf(content1.getFechaVigencia());
+//        historicoProductoService.crear(newHistoricoProducto);
+//        return Response.status(200).entity("").build();
+//    }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
