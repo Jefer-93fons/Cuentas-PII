@@ -36,10 +36,19 @@ public class InteresService {
     public void modificar(Interes interes){
         this.interesFacade.edit(interes);
     }
-    
-    public void eliminar(Integer codigo){
-        Interes interes = this.interesFacade.find(codigo);
-        this.interesFacade.remove(interes);
+    public void eliminar(Interes auxProducto){
+        this.interesFacade.remove(auxProducto);
     }
+   
     
+    public Interes buscar(Interes auxProducto){
+        Interes producto=null;
+        for (Interes productoAux: this.interesFacade.findAll()) {
+            if (productoAux.getIdInteres()==auxProducto.getIdInteres()) {
+                producto=productoAux;
+            }
+        }
+
+        return producto;
+    }
 }

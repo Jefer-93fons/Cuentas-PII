@@ -58,8 +58,29 @@ public class Transaccion implements Serializable {
     @JoinColumn(name = "ID_TIPO_TRANSACCION", referencedColumnName = "ID_TIPO_TRANSACCION")
     @ManyToOne
     private TipoTransaccion idTipoTransaccion;
+    
+    @Column(name = "CONCEPTO")
+    private String concepto;
+    @Column(name = "SALDO")
+    private BigDecimal saldo;
 
     public Transaccion() {
+    }
+
+    public String getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
+    }
+
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
     }
 
     public Transaccion(Integer idTransaccion) {

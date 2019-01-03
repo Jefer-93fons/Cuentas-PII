@@ -48,22 +48,22 @@ public class ComisionProductoResource {
     public ComisionProductoResource() {
         //lstCuentas=cuentaEJB.findAll();
     }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public ComisionProducto getJson() {
-        lstComisionProductos = comisionProductoService.obtenerTodos();
-        if (lstComisionProductos.size() > 0) {
-            ComisionProducto auxComisionProducto = lstComisionProductos.get(0);
-            System.out.println("La comision para producto es " + auxComisionProducto.getIdComisionProducto()
-                    + "la razon de la comision es " + auxComisionProducto.getIdComision().getRazonComision()+ " y esta asociado al producto " + auxComisionProducto.getIdProducto().getNombreProducto());
-
-            return auxComisionProducto;
-        } else {
-            System.out.println("No existen Comisiones para productos");
-        }
-        return null;
-    }
+//
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public ComisionProducto getJson() {
+//        lstComisionProductos = comisionProductoService.obtenerTodos();
+//        if (lstComisionProductos.size() > 0) {
+//            ComisionProducto auxComisionProducto = lstComisionProductos.get(0);
+//            System.out.println("La comision para producto es " + auxComisionProducto.getIdComisionProducto()
+//                    + "la razon de la comision es " + auxComisionProducto.getIdComision().getRazonComision()+ " y esta asociado al producto " + auxComisionProducto.getIdProducto().getNombreProducto());
+//
+//            return auxComisionProducto;
+//        } else {
+//            System.out.println("No existen Comisiones para productos");
+//        }
+//        return null;
+//    }
 
     /**
      * PUT method for updating or creating an instance of CuentaResource
