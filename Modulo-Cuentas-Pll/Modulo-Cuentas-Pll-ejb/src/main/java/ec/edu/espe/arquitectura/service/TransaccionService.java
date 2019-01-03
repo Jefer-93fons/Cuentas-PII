@@ -10,6 +10,7 @@ import ec.edu.espe.arquitectura.dao.TransaccionFacade;
 import ec.edu.espe.arquitectura.model.Cuenta;
 import ec.edu.espe.arquitectura.model.Transaccion;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -69,8 +70,16 @@ public class TransaccionService {
     public List<Transaccion> findHistorialTransaccion(Date fechaI, Date fechaF, String cuenta) {
         List<Transaccion> trans = porCuenta(Integer.parseInt(cuenta));
         List<Transaccion> transaccionsDevuletas = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaI);
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        fechaI=calendar.getTime();
+        calendar.setTime(fechaF);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        fechaF=calendar.getTime();
         for (Transaccion auxTran : trans) {
             Date auxFecha = auxTran.getFechaTransaccion();
+            
             if (auxFecha.before(fechaF) && auxFecha.after(fechaI)) {
                 transaccionsDevuletas.add(auxTran);
             }
