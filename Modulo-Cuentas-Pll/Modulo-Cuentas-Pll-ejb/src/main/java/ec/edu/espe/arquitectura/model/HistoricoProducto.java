@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "HistoricoProducto.findAll", query = "SELECT h FROM HistoricoProducto h")
     , @NamedQuery(name = "HistoricoProducto.findByIdHistoricoProducto", query = "SELECT h FROM HistoricoProducto h WHERE h.idHistoricoProducto = :idHistoricoProducto")
-    , @NamedQuery(name = "HistoricoProducto.findByFechaVigencia", query = "SELECT h FROM HistoricoProducto h WHERE h.fechaVigencia = :fechaVigencia")})
+    })
 public class HistoricoProducto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class HistoricoProducto implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA_VIGENCIA")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     //private Date fechaVigencia;
     private String fechaVigencia1;
     @JoinColumn(name = "ID_ESTADO_PRODUCTO", referencedColumnName = "ID_ESTADO_PRODUCTO")
