@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -35,7 +36,7 @@ public class TransferenciaWs {
 
     @WebMethod(operationName = "Transferencia")
     public String hacerTransferenciaInterna(@WebParam(name = "origen") String origen, @WebParam(name = "destino") String destino, @WebParam(name = "monto") double monto) {
-
+        System.out.println("SERVICIO SOAP - TRANSFERENCIA INTERNA DATOS: " + origen + " " + destino + " " + monto);
         try {
             Transaccion t = new Transaccion();
             t.setIdTransaccion(100);
@@ -45,7 +46,7 @@ public class TransferenciaWs {
             C.setIdCuenta(Integer.parseInt(origen));
             t.setIdCuenta(C);
             TipoTransaccion TP = new TipoTransaccion();
-            TP.setIdTipoTransaccion(9);
+            TP.setIdTipoTransaccion(4);
             t.setIdTipoTransaccion(TP);
             //Cuenta de origen
             Cuenta cOrigen = null;
@@ -59,7 +60,14 @@ public class TransferenciaWs {
                     cDestino = auxCuenta;
                 }
             }
+            //Datos de Cuenta Incorrectos
+            if (cOrigen == null || cDestino == null) {
+                return "400";
+            }
             double valor = cOrigen.getSaldoCuenta().doubleValue();
+            if (valor < (monto + 0.5)) {
+                return "409";
+            }
             double valor2 = cDestino.getSaldoCuenta().doubleValue();
             valor -= monto;
             valor2 += monto;
@@ -68,19 +76,27 @@ public class TransferenciaWs {
             transaccionService.crear(t);
             cOrigen.setSaldoCuenta(BigDecimal.valueOf(valor));
             cuentaService.modificar(cOrigen);
-
+            cDestino.setSaldoCuenta(BigDecimal.valueOf(valor2));
+            cuentaService.modificar(cDestino);
+            TP.setIdTipoTransaccion(10);
+            t.setIdTipoTransaccion(TP);
+            t.setIdCuenta(cDestino);
+            t.setConcepto("Acreditacion de transferencia de la cuenta Num. " + origen);
+            t.setSaldo(BigDecimal.valueOf(valor2));
+            transaccionService.crear(t);
+            return "201";
         } catch (Exception e) {
-            return "Fallo";
+            return "500";
         }
-        return "ok";
     }
 
     @WebMethod(operationName = "Historico")
     public List<TranfBancaHistoricoRQ> historicoTransferencia(@WebParam(name = "cuenta") String cuenta) {
+        System.out.println("SERVICIO SOAP TRANSFERENCIAS - HISTORICO DATOS: " + cuenta);
         List<Transaccion> porCuenta = transaccionService.porCuenta(Integer.parseInt(cuenta));
         List<TranfBancaHistoricoRQ> lst = new ArrayList<>();
         for (Transaccion A : porCuenta) {
-            if (A.getIdTipoTransaccion().getIdTipoTransaccion() == 9 || A.getIdTipoTransaccion().getIdTipoTransaccion() == 10) {
+            if (A.getIdTipoTransaccion().getIdTipoTransaccion() == 4 || A.getIdTipoTransaccion().getIdTipoTransaccion() == 10) {
                 TranfBancaHistoricoRQ T = new TranfBancaHistoricoRQ();
                 T.setConcepto("Transferencia Bancaria");
                 T.setCuentaDestino(A.getConcepto());
@@ -95,9 +111,9 @@ public class TransferenciaWs {
         return lst;
     }
 
-    @WebMethod(operationName = "TransferenciaI")
+    @WebMethod(operationName = "TransferenciaE")
     public String hacerTransferenciaExterna(@WebParam(name = "origen") String origen, @WebParam(name = "destino") String destino, @WebParam(name = "monto") double monto) {
-
+        System.out.println("SERVICIO SOAP - TRANSFERENCIA EXTERNA DATOS: " + origen + " " + destino + " " + monto);
         try {
             Transaccion t = new Transaccion();
             t.setIdTransaccion(100);
@@ -107,7 +123,7 @@ public class TransferenciaWs {
             C.setIdCuenta(Integer.parseInt(origen));
             t.setIdCuenta(C);
             TipoTransaccion TP = new TipoTransaccion();
-            TP.setIdTipoTransaccion(9);
+            TP.setIdTipoTransaccion(5);
             t.setIdTipoTransaccion(TP);
             //Cuenta de origen
             Cuenta cOrigen = null;
@@ -117,30 +133,21 @@ public class TransferenciaWs {
                 if (auxCuenta.getIdCuenta() == Integer.parseInt(origen)) {
                     cOrigen = auxCuenta;
                 }
-                if (auxCuenta.getIdCuenta() == Integer.parseInt(destino)) {
-                    cDestino = auxCuenta;
-                }
             }
-            double valor = cOrigen.getSaldoCuenta().doubleValue();
-            double valor2 = cDestino.getSaldoCuenta().doubleValue();
-            valor -= monto;
-            valor2 += monto;
+            double valor = cOrigen.getSaldoCuenta().doubleValue();    
+            if (valor < (monto + 0.75)) {
+                return "409";
+            }
+            valor -= (monto+0.75);
             t.setSaldo(BigDecimal.valueOf(valor));
             t.setValorTransaccion(BigDecimal.valueOf(monto));
             transaccionService.crear(t);
             cOrigen.setSaldoCuenta(BigDecimal.valueOf(valor));
             cuentaService.modificar(cOrigen);
-            cDestino.setSaldoCuenta(BigDecimal.valueOf(valor2));
-            cuentaService.modificar(cDestino);
-            TP.setIdTipoTransaccion(10);
-            t.setIdTipoTransaccion(TP);
-            t.setIdCuenta(cDestino);
-            t.setConcepto("Acreditacion de transferencia");
-            t.setSaldo(BigDecimal.valueOf(valor2));
-            transaccionService.crear(t);
+            return "201";
         } catch (Exception e) {
-            return "Fallo";
+            return "500";
         }
-        return "ok";
+
     }
 }
