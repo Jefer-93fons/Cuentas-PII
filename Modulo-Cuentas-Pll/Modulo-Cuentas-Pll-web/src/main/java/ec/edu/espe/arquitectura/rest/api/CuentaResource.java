@@ -15,7 +15,9 @@ import ec.edu.espe.arquitectura.model.Producto;
 import ec.edu.espe.arquitectura.service.CuentaService;
 import ec.edu.espe.arquitectura.service.EstadoCuentaService;
 import ec.edu.espe.arquitectura.service.HistoricoService;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -187,31 +189,38 @@ public class CuentaResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postJson(CuentaRQ content) {
+    public Response postJson(CuentaRQ content) throws ProtocolException, IOException {
         System.out.println("Datos Recibidos: " + content.toString());
-        Cuenta cuent = new Cuenta();
-        Producto prod = new Producto();
-        Historico hist = new Historico();
-        EstadoCuenta estadoC = new EstadoCuenta();
+           
+        System.out.println("Validar: " + cuentaService.validarUsuario(content.getCodCliente()));
+        
+        if(cuentaService.validarUsuario(content.getCodCliente())){
+            Cuenta cuent = new Cuenta();
+            Producto prod = new Producto();
+            Historico hist = new Historico();
+            EstadoCuenta estadoC = new EstadoCuenta();
 
-        cuent.setIdCuenta(1);
-        prod.setIdProducto(content.getIdProducto());
-        cuent.setSaldoCuenta(content.getSaldoCuenta());
-        cuent.setCodCliente(content.getCodCliente());
-        cuent.setIdProducto(prod);
-        cuentaService.crear(cuent);
+            cuent.setIdCuenta(1);
+            prod.setIdProducto(content.getIdProducto());
+            cuent.setSaldoCuenta(content.getSaldoCuenta());
+            cuent.setCodCliente(content.getCodCliente());
+            cuent.setIdProducto(prod);
+            cuentaService.crear(cuent);
 
-        cuent.setIdCuenta(cuentaService.obtenerUltimaCuenta().get(0).getIdCuenta());
-        estadoC = estadoCuentaService.obtenerPorCodigo(content.getEstadoCuenta());
-        hist.setIdHistorico(1);
-        hist.setIdCuenta(cuent);
-        hist.setIdEstadoCuenta(estadoC);
-        hist.setFechaHistorico(new Date());
+            cuent.setIdCuenta(cuentaService.obtenerUltimaCuenta().get(0).getIdCuenta());
+            estadoC = estadoCuentaService.obtenerPorCodigo(content.getEstadoCuenta());
+            hist.setIdHistorico(1);
+            hist.setIdCuenta(cuent);
+            hist.setIdEstadoCuenta(estadoC);
+            hist.setFechaHistorico(new Date());
 
-        historicoService.crear(hist);
+            historicoService.crear(hist);
 
-        return Response.status(200).entity("Cuenta Creada").build();
-
+            return Response.status(200).entity("Cuenta Creada").build();
+        }else{
+            return Response.status(500).entity("Usuario no valido").build();
+        }
+        
     }
 
     @DELETE
