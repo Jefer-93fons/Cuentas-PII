@@ -155,7 +155,7 @@ public class TransaccionResource {
             }
             for (Transaccion auxTrans : lstTransaccions) {
                 int i = auxTrans.getIdTipoTransaccion().getIdTipoTransaccion();
-                if (i == 4 || i == 10 ||i==5) {
+                if (i == 4 || i == 10 || i == 5) {
                     TranfBancaHistoricoRQ T = new TranfBancaHistoricoRQ();
                     T.setConcepto("Transferencia Bancaria");
                     T.setCuentaDestino(auxTrans.getConcepto());
@@ -173,7 +173,7 @@ public class TransaccionResource {
                     TranfBancaHistoricoRQ TA = lstTrasnRQ.get(j);
                     TranfBancaHistoricoRQ TP = lstTrasnRQ.get(j + 1);
                     if (TA.getFecha().after(TP.getFecha())) {
-                       TranfBancaHistoricoRQ TEMP = lstTrasnRQ.get(j + 1);
+                        TranfBancaHistoricoRQ TEMP = lstTrasnRQ.get(j + 1);
                         lstTrasnRQ.set(j + 1, TA);
                         lstTrasnRQ.set(j, TEMP);
                     }
@@ -208,7 +208,7 @@ public class TransaccionResource {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
             int i = T.getTipo();
-            if (!(i == 1 || i == 2 || i == 3 || i == 31 || i == 41)) {
+            if (!(i == 1 || i == 2 || i == 3 || i == 31 || i == 41|| i == 32)) {
                 return Response.status(Response.Status.CONFLICT).build();
             }
             //Cuenta a la que corresponde la transaccion
@@ -219,7 +219,7 @@ public class TransaccionResource {
                 }
             }
             double valor = cOrigen.getSaldoCuenta().doubleValue();
-            if (T.getTipo() == 1 || T.getTipo() == 31) {
+            if (T.getTipo() == 1 || T.getTipo() == 31|| T.getTipo() == 32) {
                 valor += T.getMonto();
             } else {
                 valor -= T.getMonto();
@@ -253,6 +253,9 @@ public class TransaccionResource {
                 break;
             case 31:
                 t.setConcepto("Acreditación de Prestamo");
+                break;
+            case 32:
+                t.setConcepto("Sobregiro");
                 break;
             case 41:
                 t.setConcepto("Pago de Prestamo");
